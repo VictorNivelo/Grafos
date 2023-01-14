@@ -13,6 +13,7 @@ import java.util.HashMap;
  * @author Victor
  */
 public class GrafoDirigidoEtiquetado<E> extends GrafoDirigido {
+    
     protected E etiquetas[];
     protected HashMap<E, Integer> dicVertices;
     private Class<E> clazz;
@@ -36,14 +37,14 @@ public class GrafoDirigidoEtiquetado<E> extends GrafoDirigido {
         insertarArista(obtenerCodigoEtiquetado(origen), obtenerCodigoEtiquetado(destino));
     }
     
-    public ListaEnlazada<Adycencia> adyacentesEtiquetada(E o){
-        return adyacentes(obtenerCodigoEtiquetado(o));
-    } 
-    
     private Integer obtenerCodigoEtiquetado(E etiqueta){
         return dicVertices.get(etiqueta);
     }
     
+    public ListaEnlazada<Adycencia> adyacentesEtiquetada(E o){
+        return adyacentes(obtenerCodigoEtiquetado(o));
+    } 
+
     public E obtenerEtiqueta(Integer codigo){
         return etiquetas[codigo];
     }
@@ -57,22 +58,27 @@ public class GrafoDirigidoEtiquetado<E> extends GrafoDirigido {
     public String toString() {
         StringBuffer grafo = new StringBuffer("");
         try {
-            for(int i = 1; i <= numVertcies(); i++){
-            grafo.append("Vertice "+ String.valueOf(i) + " [" + obtenerEtiqueta(i) + "]");
-            ListaEnlazada<Adycencia> lista = adyacentes(i);
-            for(int j = 0; j < lista.getSize(); j++){
-                Adycencia a = lista.obtener(j);
-                if(a.getPeso().toString().equalsIgnoreCase(String.valueOf(Double.NaN))){
-                    grafo.append(" -- Vertice destino "+a.getDestino()+" -- SP ");
-                } else {
-                    grafo.append(" -- Vertice destino "+obtenerEtiqueta(a.getDestino())+" -- Peso "+a.getPeso());
+            for (int i = 1; i <= numVertcies(); i++) {
+                grafo.append("Vertice " + String.valueOf(i) + " [" + obtenerEtiqueta(i) + "]");
+                ListaEnlazada<Adycencia> lista = adyacentes(i);
+                
+                for (int j = 0; j < lista.getSize(); j++) {
+                    Adycencia a = lista.obtener(j);
+                    
+                    if (a.getPeso().toString().equalsIgnoreCase(String.valueOf(Double.NaN))) {
+                        grafo.append(" -- Vertice destino " + a.getDestino() + " -- SP ");
+                    } 
+                    else {
+                        grafo.append(" -- Vertice destino " + obtenerEtiqueta(a.getDestino()) + " -- Peso " + a.getPeso());
+                    }
                 }
+                grafo.append("\n");
             }
-            grafo.append("\n");
-        }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             grafo.append(e.getMessage());
         }
+//        return null;
         return grafo.toString();
     }
 }

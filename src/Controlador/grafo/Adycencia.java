@@ -9,6 +9,7 @@ package Controlador.grafo;
  * @author Victor
  */
 public class Adycencia {
+//    private Integer origen;
     private Integer destino;
     private Double peso;
     //en la prueba va a ser object

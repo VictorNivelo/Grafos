@@ -8,7 +8,6 @@ package controlador.utiles;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.security.InvalidKeyException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;

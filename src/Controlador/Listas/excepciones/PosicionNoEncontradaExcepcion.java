@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador.Listas.excepciones;
 
 /**
  *
- * @author ivangonzalez
+ * @author Victor
  */
 public class PosicionNoEncontradaExcepcion extends Exception{
      public PosicionNoEncontradaExcepcion(String msg){

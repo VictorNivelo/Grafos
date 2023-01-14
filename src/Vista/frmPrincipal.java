@@ -17,6 +17,7 @@ import com.mxgraph.util.mxEventSource;
 import com.mxgraph.view.mxGraph;
 import controlador.Listas.ListaEnlazada;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 
 /**
@@ -28,11 +29,8 @@ public class frmPrincipal extends javax.swing.JDialog {
     /**
      * Creates new form frmPrincipal1
      */
-        private Grafo grafo;
+    private Grafo grafo;
 
-    /**
-     * Creates new form DialogGrafo
-     */
     public frmPrincipal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -46,38 +44,56 @@ public class frmPrincipal extends javax.swing.JDialog {
     }
 
     private void cargarDatos() {
+        
         mxGraph graph = new mxGraph();
+        
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
-        graphComponent.setSize(new Dimension(400, 400));
-        jPanel2.add(graphComponent, BorderLayout.CENTER);
+        
+        graphComponent.setSize(new Dimension(1200, 500));
+        
+        panelGrafos.add(graphComponent, BorderLayout.CENTER);
 
         Object parent = graph.getDefaultParent();
+        
         graph.getModel().beginUpdate();
+//        graph.getModel().endUpdate();
+        
         try {
             for (int i = 1; i <= grafo.numVertcies(); i++) {
                 Object start = graph.insertVertex(parent, String.valueOf(i), String.valueOf(i), 100, 100, 80, 30);
                 ListaEnlazada<Adycencia> lista = grafo.adyacentes(i);
+                
                 for (int j = 0; j < lista.getSize(); j++) {
                     Adycencia a = lista.obtener(j);
                     Object dest = graph.insertVertex(parent, String.valueOf(a.getDestino()), String.valueOf(a.getDestino()), 100, 100, 80, 30);
                     graph.insertEdge(parent, null, String.valueOf(a.getPeso()), start, dest);
+//                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), start, dest);
                 }
             }
-        } catch (Exception e) {
-        } finally {
+        } 
+        catch (Exception e) {
+        } 
+        finally {
             graph.getModel().endUpdate();
         }
+        
         morphGraph(graph, graphComponent);
         new mxHierarchicalLayout(graph).execute(graph.getDefaultParent());
+        
     }
 
     private static void morphGraph(mxGraph graph, mxGraphComponent graphComponent) {
+        
         mxIGraphLayout layout = new mxFastOrganicLayout(graph);
+        
         graph.getModel().beginUpdate();
+        
         try {
             layout.execute(graph.getDefaultParent());
-        } catch (Exception e) {
-        } finally {
+        } 
+        catch (Exception e) {
+        } 
+        finally {
             mxMorphing morph = new mxMorphing(graphComponent, 20, 1.5, 20);
             morph.addListener(mxEvent.DONE, new mxEventSource.mxIEventListener() {
                 @Override
@@ -99,18 +115,18 @@ public class frmPrincipal extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
+        panelGrafos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPanel2.setLayout(null);
-        jScrollPane1.setViewportView(jPanel2);
+        panelGrafos.setLayout(null);
+        jScrollPane1.setViewportView(panelGrafos);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 460, 360);
+        jScrollPane1.setBounds(10, 10, 1110, 510);
 
-        setSize(new java.awt.Dimension(498, 392));
+        setSize(new java.awt.Dimension(1144, 542));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -157,7 +173,7 @@ public class frmPrincipal extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelGrafos;
     // End of variables declaration//GEN-END:variables
 }

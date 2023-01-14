@@ -12,14 +12,17 @@ import controlador.Listas.ListaEnlazada;
  * @author Victor
  */
 public class GrafoDirigido extends Grafo{
+    
     protected Integer numVertices;
     protected Integer numAristas;
     protected ListaEnlazada<Adycencia>[] listaAdycente;
 
     public GrafoDirigido(Integer numVertices) {
+        
         this.numVertices = numVertices;
         numAristas = 0;
         listaAdycente = new ListaEnlazada[numVertices + 1];
+        
         for (int i = 1; i <= this.numVertices; i++) {
             listaAdycente[i] = new ListaEnlazada<>();
         }
@@ -38,16 +41,20 @@ public class GrafoDirigido extends Grafo{
     @Override
     public Boolean existeArista(Integer o, Integer d) throws Exception {
         Boolean existe = false;
-        if (o.intValue() <= numVertices && d.intValue() <= numVertices) {
+        
+        if (o <= numVertices && d <= numVertices) {
             ListaEnlazada<Adycencia> lista = listaAdycente[o];
+            
             for (int i = 0; i < lista.getSize(); i++) {
                 Adycencia a = lista.obtener(i);
+                
                 if (a.getDestino().intValue() == d.intValue()) {
                     existe = true;
                     break;
                 }
             }
-        } else {
+        } 
+        else {
             //TODO Excepcion VerticeOfSize
             throw new VerticeOfSizeException();
         }
@@ -59,17 +66,22 @@ public class GrafoDirigido extends Grafo{
         //Nan es: no es un valor numerico, Not a Number
         Double peso = Double.NaN;
         try {
+            
             if (existeArista(o, d)) {
                 ListaEnlazada<Adycencia> adyacentes = listaAdycente[o];
+                
                 for (int i = 0; i < adyacentes.getSize(); i++) {
                     Adycencia a = adyacentes.obtener(i);
+                    
                     if (a.getDestino().intValue() == d.intValue()) {
                         peso = a.getPeso();
                         break;
                     }
                 }
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
+            
         }
         return peso;
     }
@@ -82,14 +94,14 @@ public class GrafoDirigido extends Grafo{
     @Override
     public void insertarArista(Integer o, Integer d, Double peso) throws Exception {
 
-        if (o.intValue() <= numVertices && d.intValue() <= numVertices) {
+        if (o <= numVertices && d <= numVertices) {
             if (!existeArista(o, d)) {
                 numAristas++;
                 listaAdycente[o].insertar(new Adycencia(d, peso));
             }
-        } else {
+        } 
+        else {
             throw new VerticeOfSizeException();
-
         }
     }
 
