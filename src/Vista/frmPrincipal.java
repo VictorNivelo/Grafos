@@ -17,7 +17,6 @@ import com.mxgraph.util.mxEventSource;
 import com.mxgraph.view.mxGraph;
 import controlador.Listas.ListaEnlazada;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 
 /**
@@ -163,6 +162,7 @@ public class frmPrincipal extends javax.swing.JDialog {
             public void run() {
                 frmPrincipal dialog = new frmPrincipal(new java.awt.Frame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }

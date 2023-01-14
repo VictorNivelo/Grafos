@@ -35,6 +35,5 @@ public class NodoLista <E> {
     public void setSiguiente(NodoLista<E> siguiente) {
         this.siguiente = siguiente;
     }
-    
-    
+
 }

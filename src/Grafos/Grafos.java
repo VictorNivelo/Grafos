@@ -4,9 +4,7 @@
  */
 package Grafos;
 
-import Controlador.grafo.GrafoDirigido;
 import Controlador.grafo.GrafoDirigidoEtiquetado;
-import Controlador.grafo.GrafoNoDirigido;
 import Vista.frmPrincipal;
 
 /**
@@ -15,33 +13,40 @@ import Vista.frmPrincipal;
  */
 public class Grafos {
     public static void main(String[] args) {
-//        GrafoDirigido gd = new GrafoDirigido(4);
-//        System.out.println(gd);
-//        System.out.println("-----------------");
-//        System.out.println("Grafo dirigido");
-//        try {
-//            gd.insertarArista(4, 2);
-//            gd.insertarArista(4, 1);
-//            gd.insertarArista(4, 3);
-//            gd.insertarArista(2, 3);
-//            System.out.println(gd);
-//        } catch (Exception e) {
-//        }
-//
-//        GrafoNoDirigido gnd = new GrafoNoDirigido(4);
-//        System.out.println(gnd);
-//        System.out.println("-----------------");
-//        System.out.println("Grafo no dirigido");
-//        try {
-//            gnd.insertarArista(4, 2);
-//            gnd.insertarArista(4, 1);
-//            gnd.insertarArista(4, 3);
-//            new frmPrincipal(null, true, gnd).setVisible(true);
-//            gnd.insertarArista(2, 3);
-//            System.out.println(gnd);
-//        } catch (Exception e) {
-//
-//        }
+        
+/*        GrafoDirigido gd = new GrafoDirigido(4);
+        System.out.println(gd);
+        System.out.println("-----------------");
+        System.out.println("Grafo dirigido");
+        
+        try {
+            gd.insertarArista(4, 2);
+            gd.insertarArista(4, 1);
+            gd.insertarArista(4, 3);
+            gd.insertarArista(2, 3);
+            System.out.println(gd);
+        } 
+        catch (Exception e) {
+            
+        }
+
+        GrafoNoDirigido gnd = new GrafoNoDirigido(4);
+        System.out.println(gnd);
+        System.out.println("-----------------");
+        System.out.println("Grafo no dirigido");
+        
+        try {
+            
+            gnd.insertarArista(4, 2);
+            gnd.insertarArista(4, 1);
+            gnd.insertarArista(4, 3);
+            new frmPrincipal(null, true, gnd).setVisible(true);
+            gnd.insertarArista(2, 3);
+            System.out.println(gnd);
+        } 
+        catch (Exception e) {
+
+        }*/
 
         GrafoDirigidoEtiquetado gde = new GrafoDirigidoEtiquetado(5, String.class);
         
@@ -71,8 +76,7 @@ public class Grafos {
 //            gde.insertarAristaEtiquetada("Nivelo", "GreenField", 20.0);
 //            gde.insertarAristaEtiquetada("GreenField", "Intriago", 20.0);
 //            gde.insertarAristaEtiquetada("Intriago", "GreenField", 30.0);
-            
-            
+
             
             new frmPrincipal(null, true, gde).setVisible(true);
             
