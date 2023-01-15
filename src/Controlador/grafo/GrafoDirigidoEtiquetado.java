@@ -60,12 +60,14 @@ public class GrafoDirigidoEtiquetado<E> extends GrafoDirigido {
         try {
             for (int i = 1; i <= numVertcies(); i++) {
                 grafo.append("Vertice " + String.valueOf(i) + " [" + obtenerEtiqueta(i) + "]");
+                
                 ListaEnlazada<Adycencia> lista = adyacentes(i);
                 
                 for (int j = 0; j < lista.getSize(); j++) {
                     Adycencia a = lista.obtener(j);
                     
                     if (a.getPeso().toString().equalsIgnoreCase(String.valueOf(Double.NaN))) {
+                        
                         grafo.append(" -- Vertice destino " + a.getDestino() + " -- SP ");
                     } 
                     else {

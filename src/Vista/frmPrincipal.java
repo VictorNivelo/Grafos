@@ -6,6 +6,9 @@ package Vista;
 
 import Controlador.grafo.Adycencia;
 import Controlador.grafo.Grafo;
+import Controlador.grafo.GrafoDirigidoEtiquetado;
+import Controlador.grafo.GrafoNoDirigido;
+import Controlador.grafo.GrafoNoDirigidoEtiquetado;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.layout.mxIGraphLayout;
@@ -36,7 +39,7 @@ public class frmPrincipal extends javax.swing.JDialog {
     }
 
     public frmPrincipal(java.awt.Frame parent, boolean modal, Grafo grafo) {
-        super(parent, modal);
+//        super(parent, modal);
         this.grafo = grafo;
         initComponents();
         cargarDatos();
@@ -48,38 +51,111 @@ public class frmPrincipal extends javax.swing.JDialog {
         
         mxGraphComponent graphComponent = new mxGraphComponent(graph);
         
-        graphComponent.setSize(new Dimension(1200, 500));
+        graphComponent.setSize(new Dimension(1000, 500));
+        
+        GrafoNoDirigido gnd = new GrafoNoDirigido(1);
+        GrafoNoDirigidoEtiquetado gnde = new GrafoNoDirigidoEtiquetado(1, String.class);
+        GrafoDirigidoEtiquetado gde = new GrafoDirigidoEtiquetado(1, String.class);
         
         panelGrafos.add(graphComponent, BorderLayout.CENTER);
 
         Object parent = graph.getDefaultParent();
         
         graph.getModel().beginUpdate();
+        
 //        graph.getModel().endUpdate();
         
         try {
             for (int i = 1; i <= grafo.numVertcies(); i++) {
-                Object start = graph.insertVertex(parent, String.valueOf(i), String.valueOf(i), 100, 100, 80, 30);
-                ListaEnlazada<Adycencia> lista = grafo.adyacentes(i);
+                Object Inicio;
                 
+                if (grafo.getClass() == gnde.getClass() || grafo.getClass() == gde.getClass()) {
+                    
+                    if (grafo.getClass() == gnde.getClass()) {
+                        
+                        gnde = (GrafoNoDirigidoEtiquetado) grafo;
+                        Inicio = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(i)), String.valueOf(gnde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                    } 
+                    else {
+                        gde = (GrafoDirigidoEtiquetado) grafo;
+                        Inicio = graph.insertVertex(parent,String.valueOf(gde.obtenerEtiqueta(i)), String.valueOf(gde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                    }
+                }
+                else{
+                     Inicio = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(i)), String.valueOf(gnde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                }
+                ListaEnlazada<Adycencia> lista = grafo.adyacentes(i);
+
                 for (int j = 0; j < lista.getSize(); j++) {
+                    
                     Adycencia a = lista.obtener(j);
-                    Object dest = graph.insertVertex(parent, String.valueOf(a.getDestino()), String.valueOf(a.getDestino()), 100, 100, 80, 30);
-                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), start, dest);
-//                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), start, dest);
+
+                    Object Destino = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(i)), String.valueOf(gnde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), Inicio, Destino);
+
+                    if (grafo.getClass() == gnd.getClass() || grafo.getClass() == gnde.getClass()) {
+                        
+                        graph.insertEdge(parent, null, String.valueOf(a.getPeso()), Destino, Inicio);
+//                        Destino = graph.insertVertex(parent, (String.valueOf(gnde.obtenerEtiqueta(i))), String.valueOf(j), 100, 100, 80, 30);
+                    }
+                    if (grafo.getClass() == gnde.getClass() || grafo.getClass() == gde.getClass()) {
+                        
+                        if (grafo.getClass() == gnde.getClass()) {
+                            gnde = (GrafoNoDirigidoEtiquetado) grafo;
+//                            Destino = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(j)), String.valueOf(gnde.obtenerEtiqueta(j)), 100, 100, 80, 30);
+                        } 
+                        else {
+                            gde = (GrafoDirigidoEtiquetado) grafo;
+//                            Destino = graph.insertVertex(parent, String.valueOf(gde.obtenerEtiqueta(i)), String.valueOf(gde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                        }
+                    }
+
+//                    start = graph.insertVertex(parent, String.valueOf(j), String.valueOf(j), 100, 100, 80, 30);
+//                    System.out.println("a " + a);
                 }
             }
         } 
         catch (Exception e) {
+            System.out.println("Error en cargar datos " + e);
         } 
         finally {
             graph.getModel().endUpdate();
         }
-        
         morphGraph(graph, graphComponent);
         new mxHierarchicalLayout(graph).execute(graph.getDefaultParent());
-        
-    }
+        }
+            
+//            for (int i = 1; i <= grafo.numVertcies(); i++) {
+//                
+//                Object Inicio = graph.insertVertex(parent, "", i, 100, 100, 80, 30);
+//                
+//                ListaEnlazada<Adycencia> lista = grafo.adyacentes(i);
+//                
+//                for (int j = 0; j < lista.getSize(); j++) {
+//                    
+//                    Adycencia a = lista.obtener(j);
+//                    
+//                    Object Destino = graph.insertVertex(parent, "", String.valueOf(a.getDestino()), 100, 100, 80, 30);
+//                    
+////                    graph.insertEdge(parent, null, "d", Inicio, Destino);
+//                    
+//                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), Inicio, Destino);
+////                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), Inicio, Destino);
+////                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), Inicio, Destino);
+////                    graph.insertEdge(parent, null, "hola", 1, 2);
+////                    graph.insertEdge(parent, null, String.valueOf(a.getPeso()), start, dest);
+//                }
+//            }
+//        } 
+//        catch (Exception e) {
+//        } 
+//        finally {
+//            graph.getModel().endUpdate();
+//        }
+//        morphGraph(graph, graphComponent);
+//        
+//        new mxHierarchicalLayout(graph).execute(graph.getDefaultParent());
+//    }
 
     private static void morphGraph(mxGraph graph, mxGraphComponent graphComponent) {
         
@@ -91,12 +167,17 @@ public class frmPrincipal extends javax.swing.JDialog {
             layout.execute(graph.getDefaultParent());
         } 
         catch (Exception e) {
+            
         } 
         finally {
+            
             mxMorphing morph = new mxMorphing(graphComponent, 20, 1.5, 20);
+            
             morph.addListener(mxEvent.DONE, new mxEventSource.mxIEventListener() {
+                
                 @Override
                 public void invoke(Object o, mxEventObject eo) {
+                    
                     graph.getModel().endUpdate();
                 }
             });
@@ -123,9 +204,9 @@ public class frmPrincipal extends javax.swing.JDialog {
         jScrollPane1.setViewportView(panelGrafos);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 10, 1110, 510);
+        jScrollPane1.setBounds(10, 10, 980, 510);
 
-        setSize(new java.awt.Dimension(1144, 542));
+        setSize(new java.awt.Dimension(1016, 542));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

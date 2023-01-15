@@ -9,12 +9,14 @@ package Controlador.grafo;
  * @author Victor
  */
 public class Adycencia {
+//    private String Etiqueta;
 //    private Integer origen;
     private Integer destino;
     private Double peso;
     //en la prueba va a ser object
 
     public Adycencia(Integer destino, Double peso) {
+
         this.destino = destino;
         this.peso = peso;
     }
@@ -35,8 +37,26 @@ public class Adycencia {
         this.peso = peso;
     }
 
+//    public Integer getOrigen() {
+//        return origen;
+//    }
+//
+//    public void setOrigen(Integer origen) {
+//        this.origen = origen;
+//    }
+//
+//    public String getEtiqueta() {
+//        return Etiqueta;
+//    }
+//
+//    public void setEtiqueta(String Etiqueta) {
+//        this.Etiqueta = Etiqueta;
+//    }
+    
     @Override
     public String toString() {
-        return "destino => " + destino + " peso => " + peso;
+        return " destino=" + destino + " peso=" + peso;
     }
+
+    
 }

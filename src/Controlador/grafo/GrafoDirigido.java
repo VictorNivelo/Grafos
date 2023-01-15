@@ -6,6 +6,7 @@ package Controlador.grafo;
 
 import Controlador.grafo.exception.VerticeOfSizeException;
 import controlador.Listas.ListaEnlazada;
+import java.awt.List;
 
 /**
  *
@@ -13,9 +14,13 @@ import controlador.Listas.ListaEnlazada;
  */
 public class GrafoDirigido extends Grafo{
     
+    private Integer origen;
     protected Integer numVertices;
     protected Integer numAristas;
+    
+//    List<Adycencia> listaAdycente = new List()instanceof ;
     protected ListaEnlazada<Adycencia>[] listaAdycente;
+//    protected ListaEnlazada<Adycencia>[] listaAdycente;
 
     public GrafoDirigido(Integer numVertices) {
         
@@ -23,7 +28,7 @@ public class GrafoDirigido extends Grafo{
         numAristas = 0;
         listaAdycente = new ListaEnlazada[numVertices + 1];
         
-        for (int i = 1; i <= this.numVertices; i++) {
+        for (int i = 0; i <= this.numVertices; i++) {
             listaAdycente[i] = new ListaEnlazada<>();
         }
     }
@@ -68,6 +73,7 @@ public class GrafoDirigido extends Grafo{
         try {
             
             if (existeArista(o, d)) {
+//                List<Adycencia>  adyacentes = List[0];
                 ListaEnlazada<Adycencia> adyacentes = listaAdycente[o];
                 
                 for (int i = 0; i < adyacentes.getSize(); i++) {
@@ -93,21 +99,49 @@ public class GrafoDirigido extends Grafo{
 
     @Override
     public void insertarArista(Integer o, Integer d, Double peso) throws Exception {
+        
+        try {
+            if (d.intValue() <= numVertices && o >= 0 && d <= numVertices) {
 
-        if (o <= numVertices && d <= numVertices) {
-            if (!existeArista(o, d)) {
-                numAristas++;
-                listaAdycente[o].insertar(new Adycencia(d, peso));
+                if (!existeArista(o, d)) {
+                    numAristas++;
+                    listaAdycente[o].insertar(new Adycencia(d, peso));
+                    if (origen == null) {
+                        origen = o;
+                    } 
+                    else if (origen == o) {
+                        numAristas++;
+                        listaAdycente[o].insertar(new Adycencia(d, peso));
+                        origen = o;
+                    } 
+                    else {
+                        numAristas++;
+                        listaAdycente[origen].insertar(new Adycencia(d, peso));
+                    }
+                }
+            } 
+            else {
+                throw new VerticeOfSizeException();
             }
         } 
-        else {
-            throw new VerticeOfSizeException();
+        catch (Exception e) {
+            System.out.println("Error en insertarArista: " + e);
         }
+
+//        if (o <= numVertices && d <= numVertices) {
+//            if (!existeArista(o, d)) {
+//                numAristas++;
+//                listaAdycente[o].insertar(new Adycencia(d, peso));
+//            }
+//        } 
+//        else {
+//            throw new VerticeOfSizeException();
+//        }
     }
 
     @Override
     public ListaEnlazada<Adycencia> adyacentes(Integer v) {
-
         return listaAdycente[v];
     }
+
 }
