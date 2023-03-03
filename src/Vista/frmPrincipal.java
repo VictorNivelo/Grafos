@@ -74,15 +74,15 @@ public class frmPrincipal extends javax.swing.JDialog {
                     if (grafo.getClass() == gnde.getClass()) {
                         
                         gnde = (GrafoNoDirigidoEtiquetado) grafo;
-                        Inicio = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(i)), String.valueOf(gnde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                        Inicio = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(i)), String.valueOf(gnde.obtenerEtiqueta(i)), 100, 100, 80, 30, gnde.obtenerEtiqueta(i).toString()); 
                     } 
                     else {
                         gde = (GrafoDirigidoEtiquetado) grafo;
-                        Inicio = graph.insertVertex(parent,String.valueOf(gde.obtenerEtiqueta(i)), String.valueOf(gde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                        Inicio = graph.insertVertex(parent,String.valueOf(gde.obtenerEtiqueta(i)), String.valueOf(gde.obtenerEtiqueta(i)), 100, 100, 80, 30,gnde.obtenerEtiqueta(i).toString());
                     }
                 }
                 else{
-                     Inicio = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(i)), String.valueOf(gnde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                     Inicio = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(i)), String.valueOf(gnde.obtenerEtiqueta(i)), 100, 100, 80, 30,gnde.obtenerEtiqueta(i).toString());
                 }
                 ListaEnlazada<Adycencia> lista = grafo.adyacentes(i);
 
@@ -96,17 +96,17 @@ public class frmPrincipal extends javax.swing.JDialog {
                     if (grafo.getClass() == gnd.getClass() || grafo.getClass() == gnde.getClass()) {
                         
                         graph.insertEdge(parent, null, String.valueOf(a.getPeso()), Destino, Inicio);
-//                        Destino = graph.insertVertex(parent, (String.valueOf(gnde.obtenerEtiqueta(i))), String.valueOf(j), 100, 100, 80, 30);
+                        Destino = graph.insertVertex(parent, (String.valueOf(gnde.obtenerEtiqueta(i))), String.valueOf(j), 100, 100, 80, 30);
                     }
                     if (grafo.getClass() == gnde.getClass() || grafo.getClass() == gde.getClass()) {
                         
                         if (grafo.getClass() == gnde.getClass()) {
                             gnde = (GrafoNoDirigidoEtiquetado) grafo;
-//                            Destino = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(j)), String.valueOf(gnde.obtenerEtiqueta(j)), 100, 100, 80, 30);
+                            Destino = graph.insertVertex(parent, String.valueOf(gnde.obtenerEtiqueta(j)), String.valueOf(gnde.obtenerEtiqueta(j)), 100, 100, 80, 30);
                         } 
                         else {
                             gde = (GrafoDirigidoEtiquetado) grafo;
-//                            Destino = graph.insertVertex(parent, String.valueOf(gde.obtenerEtiqueta(i)), String.valueOf(gde.obtenerEtiqueta(i)), 100, 100, 80, 30);
+                            Destino = graph.insertVertex(parent, String.valueOf(gde.obtenerEtiqueta(i)), String.valueOf(gde.obtenerEtiqueta(i)), 100, 100, 80, 30);
                         }
                     }
 

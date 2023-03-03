@@ -4,7 +4,7 @@
  */
 package Grafos;
 
-import Controlador.grafo.GrafoDirigidoEtiquetado;
+
 import Controlador.grafo.GrafoNoDirigidoEtiquetado;
 import Vista.frmPrincipal;
 
@@ -58,15 +58,19 @@ public class Grafos {
 //        gde.etiquetarVertice(5, "parker");
 
         GrafoNoDirigidoEtiquetado gnde = new GrafoNoDirigidoEtiquetado(4, String.class);
+        
         System.out.println(gnde.toString());
+        
         gnde.etiquetarVertice(1, "campoverde");
         gnde.etiquetarVertice(2, "intriago");
         gnde.etiquetarVertice(3, "piter");
         gnde.etiquetarVertice(4, "parquer");
+        
         try {
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(1), gnde.obtenerEtiqueta(3), 10.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(2), gnde.obtenerEtiqueta(3), 100.0);
             gnde.insertarAristaEtiquetada(gnde.obtenerEtiqueta(3), gnde.obtenerEtiqueta(4), 15.0);
+            
 //            gnde.insertarAristaE(gnde.obtenerEtiqueta(2), gnde.obtenerEtiqueta(1), 20.0);
 //            gnde.insertarAristaE(gnde.obtenerEtiqueta(2), gnde.obtenerEtiqueta(3), 25.0);
 //            gnde.insertarAristaE(gnde.obtenerEtiqueta(2), gnde.obtenerEtiqueta(4), 35.0);
